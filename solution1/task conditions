@@ -1,0 +1,258 @@
+1. Сумма элементов массива: Напишите функцию, которая принимает на вход массив целых чисел и возвращает их сумму.
+package main
+
+import "fmt"
+
+func sumArray(arr []int) int {
+	sum := 0
+	for _, val := range arr {
+		sum += val
+	}
+	return sum
+}
+
+func main() {
+	fmt.Print("Введите значение длины массива: ")
+	var arrayLenght int
+	fmt.Scan(&arrayLenght)
+
+	array := make([]int, arrayLenght)
+	for i := 0; i < arrayLenght; i++ {
+		fmt.Printf("Введите значение элемента массива %d: ", i+1)
+		fmt.Scan(&array[i])
+	}
+	result := sumArray(array)
+	fmt.Printf("Сумма значений элементов массива равна %d", result)
+
+}
+2. Поиск максимального элемента: Напишите функцию, которая находит максимальный элемент в массиве и возвращает его значение.
+package main
+
+import "fmt"
+
+func findTheMaximalElementOfTheArray(arr []int) int {
+	if len(arr) == 0 {
+		panic("Array is empty")
+	}
+	maxVal := arr[0]
+	for _, val := range arr {
+		if val > maxVal {
+			maxVal = val
+		}
+	}
+	return maxVal
+}
+func main() {
+	var num int
+	fmt.Printf("Enter the number of elements %d: ", num)
+	fmt.Scan(&num)
+
+	array := make([]int, num)
+	for i := 0; i < num; i++ {
+		fmt.Printf("Enter the element %d: ", i+1)
+		fmt.Scan(&array[i])
+	}
+
+	maxValue := findTheMaximalElementOfTheArray(array)
+	fmt.Printf("The maximum value in the array is: %d ", maxValue)
+}
+
+3. Поиск индекса элемента: Напишите функцию, которая находит индекс первого вхождения заданного значения в массиве.
+Если значение не найдено, верните -1.
+
+package main
+
+import "fmt"
+
+func findElementArray(arr []int, val int) int {
+	for i, num := range arr {
+		if num == val {
+			return i
+		}
+	}
+	return -1
+}
+
+func main() {
+	var number, value int
+	fmt.Print("Введите размер массива: ")
+	fmt.Scan(&number)
+
+	array := make([]int, number)
+	for i := 0; i < number; i++ {
+		fmt.Printf("Введите значение элемента %d: ", i+1)
+		fmt.Scan(&array[i])
+	}
+
+	fmt.Print("Введите значение для поиска: ")
+	fmt.Scan(&value)
+
+	index := findElementArray(array, value)
+	if index != -1 {
+		fmt.Printf("Значение %d найдено в массиве, его индекс %d", value, index)
+	} else {
+		fmt.Printf("Значение %d не найдено в массиве", value)
+	}
+}
+
+4. Разворот массива: Напишите функцию, которая разворачивает массив на месте (без использования дополнительного массива).
+
+package main
+
+import "fmt"
+
+func reverseArray(arr []int) {
+	left := 0
+	right := len(arr) - 1
+
+	//for left < right { // {4 3}
+		//tmp := arr[left]       // tmp = 4
+		//arr[left] = arr[right] // {4 3} => {3 3}
+		//arr[right] = tmp       // {3 3} => {3 4}
+
+	for left < right {
+		arr[left], arr[right] = arr[right], arr[left]
+		left++
+		right--
+	}
+}
+func main() {
+	var num int
+	fmt.Print("Введите размер массива: ")
+	fmt.Scan(&num)
+
+	array := make([]int, num)
+	for i := 0; i < num; i++ {
+		fmt.Printf("Введите элементы массива %d: ", i+1)
+		fmt.Scan(&array[i])
+
+	}
+	fmt.Println("Массив:")
+	fmt.Println(array)
+	reverseArray(array)
+
+
+5. Удаление элемента из массива: Напишите функцию, которая удаляет заданный элемент из массива и возвращает новый массив.
+
+package main
+
+import "fmt"
+
+func removeElementArray(arr []int, val int) []int {
+	var result []int
+
+	for _, num := range arr {
+		if num != val {
+			result = append(result, num)
+		}
+	}
+	return result
+}
+
+func main() {
+	var sizeArray, value int
+	fmt.Print("Введите размер массива: ")
+	fmt.Scan(&sizeArray)
+
+	array := make([]int, sizeArray)
+	for i := 0; i < sizeArray; i++ {
+		fmt.Printf("Введите элементы массива %d: ", i+1)
+		fmt.Scan(&array[i])
+	}
+
+	fmt.Print("Введите элемент для удаления: ")
+	fmt.Scan(&value)
+
+	newArray := removeElementArray(array, value)
+	fmt.Printf("Новый массива после удаления %d: %v", value, newArray)
+}
+
+6. Поиск дубликатов в массиве. Напишите функцию  на языке Golang, которая находит и выводит
+все дубликаты в массиве целых чисел.
+
+package main
+
+import (
+    "fmt"
+)
+
+func findDuplicates(nums []int) []int {
+    // Создаем карту для отслеживания встреченных чисел
+    seen := make(map[int]bool)
+    duplicates := []int{}
+
+    // Перебираем элементы массива
+    for _, num := range nums {
+        // Если число уже было встречено, то добавляем его в список дубликатов
+        if seen[num] {
+            duplicates = append(duplicates, num)
+        } else {
+            // Иначе, отмечаем его как встреченное
+            seen[num] = true
+        }
+    }
+
+    return duplicates
+}
+
+func main() {
+    nums := []int{1, 2, 3, 4, 2, 5, 6, 3, 7, 7}
+    duplicates := findDuplicates(nums)
+
+    fmt.Println("Дубликаты в массиве:", duplicates)
+}
+
+//func main() {
+//	var size int
+//	fmt.Print("Введите размер массива: ")
+//	fmt.Scan(&size)
+
+//	array := make([]int, size)
+//	for i := 0; i < size; i++ {
+//		fmt.Printf("Введите элементы массива %d: ", i+1)
+//		fmt.Scan(&array[i])
+//	}
+
+//	duplicates := findDuplicates(array)
+//	fmt.Println("Дубликаты в массиве: ", duplicates)
+
+//}
+
+
+Этот код определяет функцию findDuplicates, которая принимает массив целых чисел и возвращает список дубликатов.
+В функции main приведен пример использования этой функции с массивом nums. Когда код выполняется, он выводит
+список дубликатов в этом массиве.
+
+7. Сортировка массива: Реализуйте сортировку массива целых чисел в порядке возрастания
+(например, сортировка пузырьком или сортировка вставками)  в Golang.
+
+7.1. Пузырьковый метод сортировки.
+package main
+
+import "fmt"
+
+func bubbleSort(arr []int) {
+    n := len(arr)
+    for i := 0; i < n-1; i++ {
+        swapped := false
+        for j := 0; j < n-i-1; j++ {
+            if arr[j] > arr[j+1] {
+                // Меняем местами элементы, если они находятся в неправильном порядке
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+                swapped = true
+            }
+        }
+        // Если на текущей итерации не было обменов, список уже отсортирован
+        if !swapped {
+            break
+        }
+    }
+}
+
+func main() {
+    arr := []int{64, 34, 25, 12, 22, 11, 90}
+    fmt.Println("Исходный массив:", arr)
+    bubbleSort(arr)
+    fmt.Println("Отсортированный массив:", arr)
+}
+
