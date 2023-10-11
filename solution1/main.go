@@ -98,8 +98,8 @@ func main() {
 	//fmt.Println("n - ", n)
 	//fmt.Println("sn - ", sn)
 
-	sn[0] = 0  // Here, we assign a new value to the slice elements in order
-	sn[1] = 11 // to see whether it is a proper copy or the same slice
+	sn[0] = 55  // Here, we assign a new value to the slice elements in order
+	sn[1] = 555 // to see whether it is a proper copy or the same slice
 
 	fmt.Println(n)  // 3
 	fmt.Println(s)  // [12 23 34] - the initial slice with no changes
